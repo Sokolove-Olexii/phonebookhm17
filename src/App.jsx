@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { nanoid } from "nanoid";
-import toastr from "toastr";
+// import { useState } from "react";
+// import { nanoid } from "nanoid";
+// import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import styled from "styled-components";
 import ContactForm from "./components/ContactForm";
@@ -42,69 +42,72 @@ const Card = styled.div`
 `;
 
 const App = () => {
-  const [contacts, setContacts] = useState([
-    { id: "id-1", name: "Rosie", number: "459-12-56" },
-    { id: "id-2", name: "Mike", number: "443-89-12" },
-    { id: "id-3", name: "Eden", number: "645-17-79" },
-    { id: "id-4", name: "Annie", number: "227-91" },
-  ]);
+  // const [contacts, setContacts] = useState([
+  //   { id: "id-1", name: "Rosie", number: "459-12-56" },
+  //   { id: "id-2", name: "Mike", number: "443-89-12" },
+  //   { id: "id-3", name: "Eden", number: "645-17-79" },
+  //   { id: "id-4", name: "Annie", number: "227-91" },
+  // ]);
 
-  const [filter, setFilter] = useState("");
+  // const [filter, setFilter] = useState("");
 
-  const addContact = ({ name, number }) => {
-    if (
-      contacts.find(
-        (contact) => contact.name.toLowerCase() === name.toLowerCase()
-      )
-    ) {
-      //   alert(`${name} Вже в контактах!`);
-      toastr.error(`${name} Вже є в контактах!`);
-      return;
-    }
-    const newContact = {
-      id: nanoid(),
-      name,
-      number,
-    };
-    setContacts((prevContacts) => [...prevContacts, newContact]);
-    toastr.success(`${name} додано!`);
-  };
+  // const addContact = ({ name, number }) => {
+  //   if (
+  //     contacts.find(
+  //       (contact) => contact.name.toLowerCase() === name.toLowerCase(),
+  //     )
+  //   ) {
+  //     //   alert(`${name} Вже в контактах!`);
+  //     toastr.error(`${name} Вже є в контактах!`);
+  //     return;
+  //   }
+  //   const newContact = {
+  //     id: nanoid(),
+  //     name,
+  //     number,
+  //   };
+  //   setContacts((prevContacts) => [...prevContacts, newContact]);
+  //   toastr.success(`${name} додано!`);
+  // };
 
-  const deleteContact = (id) => {
-    // const contactToDelete = contacts.find((contact) => contact.id !== id);
-    // if (contactToDelete) {
-    //   toastr.info(`${contactToDelete.name} видалено`);
-    // }
-    toastr.info(`Контакт Видалено`);
-    setContacts((prevContacts) =>
-      prevContacts.filter((contact) => contact.id !== id)
-    );
-  };
+  // const deleteContact = (id) => {
+  //   // const contactToDelete = contacts.find((contact) => contact.id !== id);
+  //   // if (contactToDelete) {
+  //   //   toastr.info(`${contactToDelete.name} видалено`);
+  //   // }
+  //   toastr.info(`Контакт Видалено`);
+  //   setContacts((prevContacts) =>
+  //     prevContacts.filter((contact) => contact.id !== id),
+  //   );
+  // };
 
-  const changeFilter = (e) => {
-    setFilter(e.target.value);
-  };
+  // const changeFilter = (e) => {
+  //   setFilter(e.target.value);
+  // };
 
-  const getFilteredContacts = () => {
-    const normalized = filter.toLowerCase();
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(normalized)
-    );
-  };
+  // const getFilteredContacts = () => {
+  //   const normalized = filter.toLowerCase();
+  //   return contacts.filter((contact) =>
+  //     contact.name.toLowerCase().includes(normalized),
+  //   );
+  // };
 
-  const filteredContacts = getFilteredContacts();
+  // const filteredContacts = getFilteredContacts();
 
   return (
     <MainAppSection>
       <Card>
         <Title>Phonebook</Title>
-        <ContactForm onSubmit={addContact} />
+        <ContactForm />
+        {/* onSubmit={addContact} */}
       </Card>
 
       <Card>
         <SubTitle>Contacts</SubTitle>
-        <Filter value={filter} onChange={changeFilter} />
-        <ContactList contacts={filteredContacts} onDelete={deleteContact} />
+        <Filter />
+        {/* value={filter} onChange={changeFilter} */}
+        <ContactList />
+        {/* contacts={filteredContacts} onDelete={deleteContact} */}
       </Card>
     </MainAppSection>
   );

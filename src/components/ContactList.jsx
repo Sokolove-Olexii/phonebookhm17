@@ -1,3 +1,5 @@
+import { useSelector, useDispatch } from "react-redux";
+import { deleteContact } from "../redux/actions";
 import styled from "styled-components";
 
 const List = styled.ul`
@@ -27,20 +29,31 @@ const DeleteBtn = styled.button`
   padding: 5px 10px;
   border-radius: 8px;
   cursor: pointer;
-  transition: 0.45s;
+  transition: all 0.45s ease;
 
   &:hover {
     background: #d93636;
   }
 `;
 
-const ContactList = ({ contacts, onDelete }) => {
+const ContactList = () => {
+  const dispatch = useDispatch();
+
+  const contacts = useSelector((state) => state.contacts);
+  const filter = useSelector((state) => state.filter);
+
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase()),
+  );
+
   return (
     <List>
-      {contacts.map(({ id, name, number }) => (
+      {filteredContacts.map(({ id, name, number }) => (
         <Item key={id}>
           {name}: {number}
-          <DeleteBtn onClick={() => onDelete(id)}>Delete</DeleteBtn>
+          <DeleteBtn onClick={() => dispatch(deleteContact(id))}>
+            Delete
+          </DeleteBtn>
         </Item>
       ))}
     </List>

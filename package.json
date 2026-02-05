@@ -4,6 +4,7 @@
   "homepage": "https://Sokolove-Olexii.github.io/phonebookhm17",
   "private": true,
   "dependencies": {
+    "@redux-devtools/extension": "^3.3.0",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
@@ -13,7 +14,9 @@
     "pnotify": "^5.2.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-redux": "^9.2.0",
     "react-scripts": "5.0.1",
+    "redux": "^5.0.1",
     "styled-components": "^6.1.19",
     "toastr": "^2.1.4",
     "web-vitals": "^2.1.4"

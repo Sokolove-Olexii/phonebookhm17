@@ -1,3 +1,6 @@
+import toastr from "toastr";
+import { useSelector, useDispatch } from "react-redux";
+import { addContact } from "../redux/actions";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -14,7 +17,7 @@ const Input = styled.input`
   border-radius: 10px;
   border: 1px solid #ccc;
   font-size: 18px;
-  transition: 0.45s;
+  transition: all 0.45s ease;
 
   &:focus {
     border-color: #0077ff;
@@ -31,7 +34,7 @@ const Button = styled.button`
   border-radius: 10px;
   font-size: 18px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 
   &:hover {
     background: #005fcc;
@@ -42,19 +45,37 @@ const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
 
-  const handleChange = (e) => {
-    const { name: fieldName, value } = e.target;
+  const dispatch = useDispatch();
+  const contacts = useSelector((state) => state.contacts);
 
-    if (fieldName === "name") {
-      setName(value);
-    } else if (fieldName === "number") {
-      setNumber(value);
-    }
-  };
+  // const handleChange = (e) => {
+  //   const { name: fieldName, value } = e.target;
+
+  //   if (fieldName === "name") {
+  //     setName(value);
+  //   } else if (fieldName === "number") {
+  //     setNumber(value);
+  //   }
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ name, number });
+    // onSubmit({ name, number });
+    if (name.trim() === "" || number.trim() === "") {
+      toastr.error("Fields can't be empty");
+      return;
+    }
+
+    const isDuplicate = contacts.some(
+      (contact) => contact.name.toLowerCase() === name.toLowerCase(),
+    );
+
+    if (isDuplicate) {
+      toastr.info(`${name} is already in contacts`);
+      return;
+    }
+
+    dispatch(addContact(name, number));
     setName("");
     setNumber("");
   };
@@ -65,7 +86,7 @@ const ContactForm = ({ onSubmit }) => {
         type="text"
         name="name"
         value={name}
-        onChange={handleChange}
+        onChange={(e) => setName(e.target.value)}
         placeholder="Enter name..."
         required
       />
@@ -73,7 +94,7 @@ const ContactForm = ({ onSubmit }) => {
         type="tel"
         name="number"
         value={number}
-        onChange={handleChange}
+        onChange={(e) => setNumber(e.target.value)}
         placeholder="Enter number..."
         required
       />

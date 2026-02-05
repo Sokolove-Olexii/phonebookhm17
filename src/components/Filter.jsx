@@ -1,11 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
+import { setFilter } from "../redux/actions";
 import styled from "styled-components";
+
 const InputForm = styled.input`
   width: 90%;
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ccc;
   font-size: 18px;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 
   &:focus {
     border-color: #ff4d4d;
@@ -14,7 +17,15 @@ const InputForm = styled.input`
   }
 `;
 
-const Filter = ({ value, onChange }) => {
+const Filter = () => {
+  const dispatch = useDispatch();
+
+  const value = useSelector((state) => state.value);
+
+  const onChange = (e) => {
+    dispatch(setFilter(e.target.value));
+  };
+
   return (
     <div>
       <p>Find contacts by name</p>
